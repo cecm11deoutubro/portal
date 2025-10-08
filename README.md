@@ -6,3 +6,17 @@
 # 6) sisvoto (sistema de votação online, BD mysql)
 # 7) enquete (verificar perguntas com direção, BD mysql).
 # 8) ...
+
+G1	                G2	          G3
+Heitor	            Luan	        Lucas
+João Victor	        Albert	      Nathan
+Vinicius            Alfredo	    Pedro	Luis
+Vinicius Barbosa	  Ana	          Roberto
+Samuel	            Gustavo	      Jeferson
+		
+	arquivos/pastas	bd
+G1	home.html	
+G1	sobre.html	
+G2	contato.php	
+G2	votaí	x
+G3	enquete	x
