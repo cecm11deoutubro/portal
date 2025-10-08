@@ -7,14 +7,14 @@
 # 7) enquete (verificar perguntas com direção, BD mysql).
 # 8) ...
 
-### G1 ###                      
+# G1 #                      
 # Heitor	           	       
 # João Victor	       	      
 # Vinicius            	    	
 # Vinicius Barbosa	  	          
 # Samuel	            	      
 
-### G2 ###
+# G2 #
 # Luan
 # Albert
 # Alfredo
@@ -22,7 +22,7 @@
 # Gustavo
 # Pedro
 
-### G3 ###
+# G3 #
 # Lucas
 # Nathan
 # Luis
