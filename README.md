@@ -1,8 +1,8 @@
 # portal
-# index.html 
-# sobre.html
+# index.html (Logo, Menu de navegação, Mensagem principal (missão, visão...), Apresentação rápida (mapa do site), Destaques ou novidades (fotos, rede sociais...), Depoimentos, Rodapé (links para redes sociais e whats, fone, endereço...)
+# sobre.html (história...)
 # contato.php (ou .html)
-# portfolio
-# votai
-# enquete
-# 
+# portfolio (projetos e trabalhos desenvolvidos pelos estudantes ou projetos sociais desenvolvidos pela comunidade escolar)
+# sisvoto (sistema de votação online)
+# enquete (verificar perguntas com direção.
+# ...
