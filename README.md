@@ -10,17 +10,17 @@
 # G1 #                      
 # Heitor	           	       
 # João Victor	       	      
-# Vinicius            	    	
+# Vinicius Alfredo         	    	
 # Vinicius Barbosa	  	          
 # Samuel	            	      
 
 # G2 #
 # Luan
 # Albert
-# Alfredo
+# Pedro
 # Ana
 # Gustavo
-# Pedro
+# Gabriel
 
 # G3 #
 # Lucas
