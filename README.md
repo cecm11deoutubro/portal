@@ -3,6 +3,6 @@
 # 3) sobre.html (história...)
 # 4) contato.php (ou .html)
 # 5) portfolio (projetos e trabalhos desenvolvidos pelos estudantes ou projetos sociais desenvolvidos pela comunidade escolar)
-# 6) sisvoto (sistema de votação online)
-# 7) enquete (verificar perguntas com direção.
+# 6) sisvoto (sistema de votação online, BD mysql)
+# 7) enquete (verificar perguntas com direção, BD mysql).
 # 8) ...
