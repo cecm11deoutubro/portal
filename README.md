@@ -7,8 +7,8 @@
 # 7) enquete (verificar perguntas com direção, BD mysql).
 # 8) ...
 
-# G1	                G2	          G3
-# Heitor	            Luan	        Lucas
+# G1	               #  G2	       # G3
+# Heitor	           #  Luan	        Lucas
 # João Victor	        Albert	      Nathan
 # Vinicius            Alfredo	    Pedro	Luis
 # Vinicius Barbosa	  Ana	          Roberto
