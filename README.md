@@ -1,3 +1,5 @@
+https://cecm11deoutubro.github.io/portal/
+
 # 1) portal: design responsivo, mobile (consultar exemplos e ideias de sites de outras escolas que podem ser reutilizados neste portal)
 # 2) G1 - index.html (Logo, Menu de navegação, Mensagem principal (missão, visão...), Apresentação rápida (mapa do site), Destaques ou novidades (fotos, rede sociais...), Depoimentos, Rodapé (links para redes sociais e whats, fone, endereço...)
 # 3) G1 - sobre.html (história...)
