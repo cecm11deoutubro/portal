@@ -373,60 +373,72 @@
               Não foi possível validar o formulário. Por favor, corrija os erros e tente novamente.
           </div>
 
-          <form id="contactForm" novalidate>
-            <div class="row">
-              <div class="field-container">
-                <label for="nome"><strong>Nome</strong></label>
-                <input id="nome" name="nome" type="text" placeholder="Seu nome completo" required />
-                <div class="error" id="errNome">Por favor, informe seu nome completo.</div>
-              </div>
-              <div class="field-container">
-                <label for="telefone"><strong>Telefone</strong></label>
-                <input id="telefone" name="telefone" type="tel" placeholder="(00) 0 0000-0000" />
-                 <div class="hint" id="hintTelefone" style="color: #777; margin-top: 4px;">Este campo é opcional.</div>
-              </div>
-            </div>
+           <form id="contactForm" action="https://formspree.io/f/xldonebe" method="POST" novalidate>
+                    <div class="row">
+                        <div>
+                            <label for="nome"><strong>Nome</strong></label>
+                            <input id="nome" name="nome" type="text" placeholder="Seu nome completo" required />
+                            <div class="error" id="errNome">
+                                Por favor informe seu nome.
+                            </div>
+                        </div>
+                        <div>
+                            <label for="telefone"><strong>Telefone</strong></label>
+                            <input id="telefone" name="telefone" type="tel" placeholder="(00) 0 0000-0000" />
+                        </div>
+                    </div>
 
-            <div class="row">
-              <div class="field-container">
-                <label for="email"><strong>E-mail</strong></label>
-                <input id="email" name="email" type="email" placeholder="seu@exemplo.com" required />
-                <div class="error" id="errEmail">Por favor, informe um e-mail válido.</div>
-              </div>
-              <div class="field-container">
-                <label for="assunto"><strong>Assunto</strong></label>
-                <select id="assunto" name="assunto" required>
-                  <option value="">Selecione...</option>
-                  <option>Suporte Técnico</option>
-                  <option>Matrículas e Documentação</option>
-                  <option>Parcerias e Colaborações</option>
-                  <option>Outros</option>
-                </select>
-                <div class="error" id="errAssunto">Selecione um assunto.</div>
-              </div>
-            </div>
+                    <div class="row">
+                        <div>
+                            <label for="email"><strong>E-mail</strong></label>
+                            <input id="email" name="email" type="email" placeholder="seu@exemplo.com" required />
+                            <div class="error" id="errEmail">
+                                Por favor informe um e-mail válido.
+                            </div>
+                        </div>
+                        <div>
+                            <label for="assunto"><strong>Assunto</strong></label>
+                            <select id="assunto" name="assunto" required>
+                                <option value="">Selecione...</option>
+                                <option>Suporte</option>
+                                <option>Informações</option>
+                                <option>Matrículas</option>
+                                <option>Ensino Médio</option>
+                                <option>Ensino Fundamental</option>
+                                <option>Outros</option>
+                            </select>
+                            <div class="error" id="errAssunto">Selecione um assunto.</div>
+                        </div>
+                    </div>
 
-            <div class="field-container">
-              <label for="mensagem"><strong>Mensagem</strong></label>
-              <textarea id="mensagem" name="mensagem" placeholder="Escreva sua mensagem aqui (mínimo de 10 caracteres)" required></textarea>
-              <div class="error" id="errMensagem">A mensagem não pode ficar vazia e deve ter no mínimo 10 caracteres.</div>
-            </div>
+                    <div>
+                        <label for="mensagem"><strong>Mensagem</strong></label>
+                        <textarea id="mensagem" name="mensagem" placeholder="Escreva sua mensagem aqui"
+                            required></textarea>
+                        <div class="error" id="errMensagem">
+                            A mensagem não pode ficar vazia.
+                        </div>
+                    </div>
 
-            <div class="field-container">
-              <label><input id="consent" type="checkbox" /> <strong>Concordo em ser contatado</strong></label>
-              <div class="hint" style="color: #777;">
-                Ao marcar, você aceita que usemos seus dados para responder ao contato.
-              </div>
-              <div class="error" id="errConsent">É necessário concordar para prosseguir.</div>
-            </div>
+                    <div>
+                        <label><input id="consent" type="checkbox" name="consent" required />
+                            <strong>Concordo em ser contatado</strong></label>
+                        <div class="hint">
+                            Ao marcar você aceita que usemos seus dados para responder ao contato.
+                        </div>
+                        <div class="error" id="errConsent">
+                            É necessário concordar para prosseguir.
+                        </div>
+                    </div>
 
-            <div class="actions">
-              <button type="submit" class="btn primary" id="submitBtn">Enviar mensagem</button>
-              <button type="button" id="resetBtn" class="btn secondary">Limpar</button>
-              <!-- Removido o (*) da dica, já que ele não é mais exibido de forma permanente -->
-              <div class="hint">Campos com borda vermelha são obrigatórios.</div>
-            </div>
-          </form>
+                    <div class="actions">
+                        <button type="submit" class="btn">Enviar mensagem</button>
+                        <button type="reset" id="resetBtn" class="btn secondary">Limpar</button>
+                        <div class="hint" style="margin-left: auto">
+                            Campos com * são obrigatórios
+                        </div>
+                    </div>
+                </form>
         </section>
 
         <aside class="card">
@@ -621,4 +633,5 @@
     </script>
   </body>
 </html>
+
 
