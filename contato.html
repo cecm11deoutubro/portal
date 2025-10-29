@@ -6,6 +6,7 @@
     <title>Contato</title>
     <style>
       :root {
+        /* Light Mode Defaults */
         --primary-dark: #003d6b;
         --primary-green: #0a5f3e;
         --primary-green-medium: #0d7a52;
@@ -18,6 +19,28 @@
         --card-bg: #ffffff;
         --border-color: #e0e0e0;
         --shadow-color: rgba(0, 0, 0, 0.1);
+
+        /* Dark Mode Colors (Usados para sobrescrever na classe .dark-mode) */
+        --dark-text-color: #e0e0e0;
+        --dark-bg-color: #1a1a1a;
+        --dark-bg-secondary: #2c2c2c;
+        --dark-card-bg: #242424;
+        --dark-border-color: #444;
+        --dark-shadow-color: rgba(255, 255, 255, 0.05);
+        --dark-primary-dark: #4fa7dd; /* Versão mais clara do primary-dark para contraste no escuro */
+        --dark-primary-green: #37d692; /* Versão mais clara do primary-green para contraste no escuro */
+      }
+
+      /* Dark Mode Overrides */
+      .dark-mode {
+        --text-color: var(--dark-text-color);
+        --bg-color: var(--dark-bg-color);
+        --bg-secondary: var(--dark-bg-secondary);
+        --card-bg: var(--dark-card-bg);
+        --border-color: var(--dark-border-color);
+        --shadow-color: var(--dark-shadow-color);
+        --primary-dark: var(--dark-primary-dark);
+        --primary-green: var(--dark-primary-green);
       }
 
       body {
@@ -27,6 +50,7 @@
         background-color: var(--bg-color);
         margin: 0;
         padding: 0;
+        transition: background-color 0.3s, color 0.3s; /* Transição suave para o modo escuro */
       }
 
       .wrap {
@@ -38,18 +62,25 @@
       header {
         background: linear-gradient(135deg, var(--primary-dark), var(--primary-green));
         color: var(--white);
-        padding: 1.5rem 2rem; /* Increased padding */
-        border-radius: 12px; /* Increased rounding */
-        box-shadow: 0 4px 15px rgba(0, 61, 107, 0.2); /* Deeper shadow */
+        padding: 1.5rem 2rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0, 61, 107, 0.2);
         margin-bottom: 30px;
-        /* ADICIONADO PARA POSICIONAR O BOTÃO DE VOLTAR */
+        /* ADICIONADO PARA POSICIONAR OS ITENS */
         display: flex;
         justify-content: space-between;
         align-items: center;
       }
+      
+      .dark-mode header {
+        /* Garante que o gradiente use as cores claras definidas para o modo escuro */
+        background: linear-gradient(135deg, var(--dark-primary-dark), var(--dark-primary-green));
+      }
 
       .brand-container {
           text-align: right;
+          /* Garante que a marca fique no centro da área disponível */
+          flex-grow: 1; 
       }
 
       .brand {
@@ -63,7 +94,7 @@
         margin-top: 4px;
       }
       
-      /* NOVO CSS PARA O BOTÃO DE VOLTAR (AGORA EM FORMATO DE BOLA) */
+      /* CSS PARA O BOTÃO DE VOLTAR */
       .back-btn {
           display: flex;
           align-items: center;
@@ -80,6 +111,7 @@
           background-color: rgba(255, 255, 255, 0.2); /* Fundo sutil */
           box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
           transition: background-color 0.3s ease, transform 0.2s ease;
+          flex-shrink: 0; /* Não encolhe */
       }
 
       .back-btn:hover {
@@ -90,11 +122,171 @@
       .back-btn svg {
           width: 20px;
           height: 20px;
-          stroke: var(--white);
+          stroke: currentColor; /* Usa a cor do texto (white) */
           fill: none;
           flex-shrink: 0;
       }
+      
+      /* --- ESTILO DO NOVO BOTÃO DE SWITCH (MODO ESCURO) --- */
+      .theme-toggle {
+          background: rgba(255, 255, 255, 0.2);
+          border: none;
+          color: white;
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 1.2rem;
+          transition: all 0.3s ease;
+      }
 
+      .theme-toggle:hover {
+          background: rgba(255, 255, 255, 0.3);
+          transform: scale(1.1);
+      }
+      
+      .theme-toggle-wrapper {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 40px;
+          flex-shrink: 0; /* Evita que o switch encolha */
+          margin-left: 15px; /* Adiciona espaço entre o botão de voltar e o switch, se for o caso */
+      }
+
+      .theme-toggle-wrapper .toggle-switch {
+          position: relative;
+          width: 80px;
+          height: 40px;
+          margin: 0; /* Remove margem extra */
+          padding: 0; /* Remove padding extra */
+      }
+
+      .theme-toggle-wrapper .toggle-switch input {
+          opacity: 0;
+          width: 0;
+          height: 0;
+      }
+
+      .theme-toggle-wrapper .slider {
+          position: absolute;
+          cursor: pointer;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(145deg, #f1c40f, #f39c12); /* Cor de dia */
+          transition: 0.4s;
+          border-radius: 34px;
+          box-shadow: 0 0 10px rgba(241, 196, 15, 0.5);
+      }
+
+      .theme-toggle-wrapper .slider:before {
+          position: absolute;
+          content: "☀️";
+          height: 32px;
+          width: 32px;
+          left: 4px;
+          bottom: 4px;
+          background: white;
+          transition: 0.4s;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 18px;
+          z-index: 2;
+      }
+
+      .theme-toggle-wrapper input:checked + .slider {
+          background: linear-gradient(145deg, #2c3e50, #34495e); /* Cor de noite */
+          box-shadow: 0 0 15px rgba(44, 62, 80, 0.5);
+      }
+
+      .theme-toggle-wrapper input:checked + .slider:before {
+          transform: translateX(40px);
+          content: "🌙";
+      }
+
+      .theme-toggle-wrapper .clouds {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+          pointer-events: none;
+      }
+
+      .theme-toggle-wrapper .cloud {
+          position: absolute;
+          width: 20px;
+          height: 20px;
+          /* Ajuste para garantir que as nuvens sejam brancas em ambos os modos, mas sutis no escuro */
+          fill: rgba(255, 255, 255, 0.8); 
+          transition: all 0.4s ease;
+          filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.1));
+      }
+      
+      .dark-mode .theme-toggle-wrapper .cloud {
+          fill: rgba(255, 255, 255, 0.15); /* Nuvens mais escuras no modo escuro (quase invisíveis) */
+      }
+
+
+      .theme-toggle-wrapper .cloud1 {
+          top: 10px;
+          left: 10px;
+          animation: floatCloud1 8s infinite linear;
+      }
+
+      .theme-toggle-wrapper .cloud2 {
+          top: 15px;
+          left: 40px;
+          transform: scale(0.8);
+          animation: floatCloud2 12s infinite linear;
+      }
+
+      @keyframes floatCloud1 {
+          0% {
+              transform: translateX(-20px);
+              opacity: 0;
+          }
+
+          20%,
+          80% {
+              opacity: 1;
+          }
+
+          100% {
+              transform: translateX(80px);
+              opacity: 0;
+          }
+      }
+
+      @keyframes floatCloud2 {
+          0% {
+              transform: translateX(-20px) scale(0.8);
+              opacity: 0;
+          }
+
+          20%,
+          80% {
+              opacity: 0.7;
+          }
+
+          100% {
+              transform: translateX(80px) scale(0.8);
+              opacity: 0;
+          }
+      }
+
+      .theme-toggle-wrapper input:checked + .slider .cloud {
+          opacity: 0;
+          transform: translateY(-20px);
+      }
+
+      /* --- FIM DO NOVO ESTILO DE SWITCH --- */
 
       .grid {
         display: grid;
@@ -104,10 +296,11 @@
 
       .card {
         background: var(--card-bg);
-        padding: 2.5rem; /* Increased padding */
-        border-radius: 16px; /* Increased rounding */
+        padding: 2.5rem;
+        border-radius: 16px;
         box-shadow: 0 10px 30px var(--shadow-color);
-        border: 1px solid var(--border-color); /* Subtle border */
+        border: 1px solid var(--border-color);
+        transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
       }
 
       h1 {
@@ -123,7 +316,7 @@
       .lead {
         font-size: 1.1rem;
         margin-bottom: 1.5rem;
-        color: #555;
+        color: var(--text-color); /* Usando variável para se adaptar ao modo escuro */
       }
 
       .row {
@@ -193,14 +386,14 @@
         background-color: var(--bg-secondary);
         color: var(--text-color);
         font-size: 1rem;
-        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s;
       }
 
       input:focus, select:focus, textarea:focus {
         border-color: var(--primary-green-medium);
         box-shadow: 0 0 0 3px rgba(13, 122, 82, 0.2);
         outline: none;
-        background-color: var(--white);
+        background-color: var(--card-bg); /* Use card-bg (white/dark-card) on focus */
       }
       
       textarea {
@@ -216,20 +409,37 @@
         font-weight: 500;
       }
       
+      .dark-mode .error {
+          color: #f7a0a5; /* Light red for error text in dark mode */
+      }
+      
       .field-error input, .field-error select, .field-error textarea {
           border-color: #d9534f !important;
       }
-
+      
+      /* Modo escuro para alertas */
       .success {
         background-color: #d4edda;
         color: #155724;
         border: 1px solid #c3e6cb;
         padding: 15px;
         border-radius: 8px;
-        /* Texto atualizado para mailto */
         font-weight: 500;
         margin-bottom: 1.5rem;
         display: none;
+        transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+      }
+      
+      .dark-mode .success {
+          background-color: #0b3d16; /* Dark green background */
+          color: #a4e5af; /* Light green text */
+          border-color: #176f2f;
+      }
+      
+      .dark-mode #statusError {
+          background-color: #581d22 !important; /* Dark red background */
+          color: #f7a0a5 !important; /* Light red text */
+          border-color: #8c2a33 !important;
       }
 
       .actions {
@@ -241,7 +451,7 @@
       }
 
       .btn {
-        padding: 12px 25px;
+        padding: 10px 20px; /* REDUÇÃO: Alterado de 12px 25px para 10px 20px */
         border-radius: 50px;
         font-weight: 600;
         cursor: pointer;
@@ -271,7 +481,7 @@
 
       .btn.secondary:hover {
         background: var(--primary-dark);
-        color: white;
+        color: var(--white);
         border-color: var(--primary-dark);
       }
 
@@ -289,7 +499,7 @@
       
       .contact-item span {
           display: block;
-          color: #555;
+          color: var(--text-color); /* Usando variável para se adaptar ao modo escuro */
       }
 
       footer {
@@ -299,6 +509,11 @@
         font-size: 0.85rem;
         padding: 10px 0;
         border-top: 1px solid var(--border-color);
+        transition: border-color 0.3s, color 0.3s;
+      }
+      
+      .dark-mode footer {
+          color: #a0a0a0;
       }
       
       /* Responsive Design */
@@ -323,12 +538,13 @@
           }
           header {
               padding: 1.5rem;
-              flex-direction: row; /* Keep elements side-by-side */
+              flex-direction: row; 
               align-items: flex-start;
           }
           .brand-container {
               text-align: left;
-              margin-left: 15px; /* Separate button and brand info */
+              margin: 0 10px; /* Espaçamento entre os botões */
+              flex-grow: 1;
           }
           .brand {
               font-size: 1.5rem;
@@ -345,16 +561,37 @@
     <div class="wrap">
       <header>
         <!-- BOTÃO DE VOLTAR EM FORMATO DE BOLA -->
-        <a href="index.html" class="back-btn" aria-label="Voltar para a página inicial">
+        <a href="/" class="back-btn" aria-label="Voltar para a página inicial">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M19 12H5"/><path d="m12 19-7-7 7-7"/>
             </svg>
         </a>
+        
         <div class="brand-container">
             <div class="brand">
               <strong>Colégio Cívico Militar Onze de Outubro</strong>
               <div class="hint">Entre em contato — responderemos em até 48 horas</div>
             </div>
+        </div>
+        
+        <!-- NOVO: BOTÃO DE MODO ESCURO (Switch com animação) -->
+        <div class="theme-toggle-wrapper">
+            <label class="toggle-switch">
+                <input type="checkbox" id="darkModeCheckbox" aria-label="Alternar Modo Escuro">
+                <span class="slider">
+                    <!-- Nuvens SVG para animação no CSS -->
+                    <div class="clouds">
+                        <!-- NUVEM 1: ALTURA AUMENTADA (Base Y=35, Picos Y=15/20) -->
+                        <svg class="cloud cloud1" viewBox="0 0 100 50" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M 10 35 A 15 15 0 0 1 20 15 A 25 25 0 0 1 50 20 A 25 25 0 0 1 70 15 A 15 15 0 0 1 80 35 L 10 35 Z" />
+                        </svg>
+                        <!-- NUVEM 2: ALTURA AUMENTADA (Base Y=35, Picos Y=15/20) -->
+                        <svg class="cloud cloud2" viewBox="0 0 100 50" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M 10 35 A 15 15 0 0 1 20 15 A 25 25 0 0 1 50 20 A 25 25 0 0 1 70 15 A 15 15 0 0 1 80 35 L 10 35 Z" />
+                        </svg>
+                    </div>
+                </span>
+            </label>
         </div>
       </header>
 
@@ -373,72 +610,60 @@
               Não foi possível validar o formulário. Por favor, corrija os erros e tente novamente.
           </div>
 
-           <form id="contactForm" action="https://formspree.io/f/xldonebe" method="POST" novalidate>
-                    <div class="row">
-                        <div>
-                            <label for="nome"><strong>Nome</strong></label>
-                            <input id="nome" name="nome" type="text" placeholder="Seu nome completo" required />
-                            <div class="error" id="errNome">
-                                Por favor informe seu nome.
-                            </div>
-                        </div>
-                        <div>
-                            <label for="telefone"><strong>Telefone</strong></label>
-                            <input id="telefone" name="telefone" type="tel" placeholder="(00) 0 0000-0000" />
-                        </div>
-                    </div>
+          <form id="contactForm" novalidate>
+            <div class="row">
+              <div class="field-container">
+                <label for="nome"><strong>Nome</strong></label>
+                <input id="nome" name="nome" type="text" placeholder="Seu nome completo" required />
+                <div class="error" id="errNome">Por favor, informe seu nome completo.</div>
+              </div>
+              <div class="field-container">
+                <label for="telefone"><strong>Telefone</strong></label>
+                <input id="telefone" name="telefone" type="tel" placeholder="(00) 0 0000-0000" />
+                 <div class="hint" id="hintTelefone" style="color: #777; margin-top: 4px;">Este campo é opcional.</div>
+              </div>
+            </div>
 
-                    <div class="row">
-                        <div>
-                            <label for="email"><strong>E-mail</strong></label>
-                            <input id="email" name="email" type="email" placeholder="seu@exemplo.com" required />
-                            <div class="error" id="errEmail">
-                                Por favor informe um e-mail válido.
-                            </div>
-                        </div>
-                        <div>
-                            <label for="assunto"><strong>Assunto</strong></label>
-                            <select id="assunto" name="assunto" required>
-                                <option value="">Selecione...</option>
-                                <option>Suporte</option>
-                                <option>Informações</option>
-                                <option>Matrículas</option>
-                                <option>Ensino Médio</option>
-                                <option>Ensino Fundamental</option>
-                                <option>Outros</option>
-                            </select>
-                            <div class="error" id="errAssunto">Selecione um assunto.</div>
-                        </div>
-                    </div>
+            <div class="row">
+              <div class="field-container">
+                <label for="email"><strong>E-mail</strong></label>
+                <input id="email" name="email" type="email" placeholder="seu@exemplo.com" required />
+                <div class="error" id="errEmail">Por favor, informe um e-mail válido.</div>
+              </div>
+              <div class="field-container">
+                <label for="assunto"><strong>Assunto</strong></label>
+                <select id="assunto" name="assunto" required>
+                  <option value="">Selecione...</option>
+                  <option>Suporte Técnico</option>
+                  <option>Matrículas e Documentação</option>
+                  <option>Parcerias e Colaborações</option>
+                  <option>Outros</option>
+                </select>
+                <div class="error" id="errAssunto">Selecione um assunto.</div>
+              </div>
+            </div>
 
-                    <div>
-                        <label for="mensagem"><strong>Mensagem</strong></label>
-                        <textarea id="mensagem" name="mensagem" placeholder="Escreva sua mensagem aqui"
-                            required></textarea>
-                        <div class="error" id="errMensagem">
-                            A mensagem não pode ficar vazia.
-                        </div>
-                    </div>
+            <div class="field-container">
+              <label for="mensagem"><strong>Mensagem</strong></label>
+              <textarea id="mensagem" name="mensagem" placeholder="Escreva sua mensagem aqui (mínimo de 10 caracteres)" required></textarea>
+              <div class="error" id="errMensagem">A mensagem não pode ficar vazia e deve ter no mínimo 10 caracteres.</div>
+            </div>
 
-                    <div>
-                        <label><input id="consent" type="checkbox" name="consent" required />
-                            <strong>Concordo em ser contatado</strong></label>
-                        <div class="hint">
-                            Ao marcar você aceita que usemos seus dados para responder ao contato.
-                        </div>
-                        <div class="error" id="errConsent">
-                            É necessário concordar para prosseguir.
-                        </div>
-                    </div>
+            <div class="field-container">
+              <label><input id="consent" type="checkbox" /> <strong>Concordo em ser contatado</strong></label>
+              <div class="hint" style="color: #777;">
+                Ao marcar, você aceita que usemos seus dados para responder ao contato.
+              </div>
+              <div class="error" id="errConsent">É necessário concordar para prosseguir.</div>
+            </div>
 
-                    <div class="actions">
-                        <button type="submit" class="btn">Enviar mensagem</button>
-                        <button type="reset" id="resetBtn" class="btn secondary">Limpar</button>
-                        <div class="hint" style="margin-left: auto">
-                            Campos com * são obrigatórios
-                        </div>
-                    </div>
-                </form>
+            <div class="actions">
+              <button type="submit" class="btn primary" id="submitBtn">Enviar mensagem</button>
+              <button type="button" id="resetBtn" class="btn secondary">Limpar</button>
+              <!-- Removido o (*) da dica, já que ele não é mais exibido de forma permanente -->
+              <div class="hint">Campos com borda vermelha são obrigatórios.</div>
+            </div>
+          </form>
         </section>
 
         <aside class="card">
@@ -478,6 +703,10 @@
         const statusSuccess = document.getElementById('statusSuccess');
         const statusError = document.getElementById('statusError');
         const submitBtn = document.getElementById('submitBtn');
+        
+        // Elementos do Modo Escuro
+        const darkModeCheckbox = document.getElementById('darkModeCheckbox');
+
 
         const inputs = {
           nome: document.getElementById('nome'),
@@ -495,6 +724,54 @@
           mensagem: document.getElementById('errMensagem'),
           consent: document.getElementById('errConsent'),
         };
+        
+        // Lógica do Modo Escuro
+        
+        function enableDarkMode() {
+            document.body.classList.add('dark-mode');
+            localStorage.setItem('theme', 'dark');
+            // Garante que o estado do checkbox reflita o modo
+            darkModeCheckbox.checked = true; 
+        }
+
+        function disableDarkMode() {
+            document.body.classList.remove('dark-mode');
+            localStorage.setItem('theme', 'light');
+            // Garante que o estado do checkbox reflita o modo
+            darkModeCheckbox.checked = false; 
+        }
+
+        // Aplica o tema ao carregar
+        const storedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        // Verifica o tema salvo ou a preferência do sistema (se nenhum tema salvo)
+        if (storedTheme === 'dark' || (storedTheme === null && prefersDark)) {
+            // Aplica a classe (necessário para que as cores iniciais sejam corretas)
+            document.body.classList.add('dark-mode');
+            // Define o estado do checkbox
+            darkModeCheckbox.checked = true;
+            // Define no local storage se for a primeira vez (null) para respeitar a preferência do sistema
+            if (storedTheme === null) {
+                localStorage.setItem('theme', prefersDark ? 'dark' : 'light');
+            }
+        } else {
+            document.body.classList.remove('dark-mode');
+            darkModeCheckbox.checked = false;
+            if (storedTheme === null) {
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        // Event listener no 'change' do checkbox para alternar o modo
+        darkModeCheckbox.addEventListener('change', () => {
+            if (darkModeCheckbox.checked) {
+                enableDarkMode();
+            } else {
+                disableDarkMode();
+            }
+        });
+
 
         // Utility function to show/hide error message and styling
         function displayError(inputElement, errorMessageElement, isValid) {
@@ -633,5 +910,3 @@
     </script>
   </body>
 </html>
-
-
