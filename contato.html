@@ -6,381 +6,617 @@
     <title>Contato</title>
     <style>
       :root {
-        --bg: #f7fafc;
-        --card: #ffffff;
-        --accent: #0ea5e9;
-        --text: #0f172a;
-        --muted: #6b7280;
-        --radius: 12px;
-        --maxw: 900px;
-        font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+        --primary-dark: #003d6b;
+        --primary-green: #0a5f3e;
+        --primary-green-medium: #0d7a52;
+        --primary-green-light: #1b9e7a;
+        --white: #ffffff;
+        --black: #1a1a1a;
+        --text-color: #333;
+        --bg-color: #ffffff;
+        --bg-secondary: #f8f9fa;
+        --card-bg: #ffffff;
+        --border-color: #e0e0e0;
+        --shadow-color: rgba(0, 0, 0, 0.1);
       }
-      * {
-        box-sizing: border-box;
-      }
+
       body {
+        font-family: "Inter", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        color: var(--text-color);
+        background-color: var(--bg-color);
         margin: 0;
-        background: linear-gradient(180deg, #eef2ff 0%, var(--bg) 40%);
-        color: var(--text);
+        padding: 0;
       }
+
       .wrap {
-        max-width: var(--maxw);
-        margin: 36px auto;
+        max-width: 1200px;
+        margin: auto;
         padding: 20px;
       }
+
       header {
+        background: linear-gradient(135deg, var(--primary-dark), var(--primary-green));
+        color: var(--white);
+        padding: 1.5rem 2rem; /* Increased padding */
+        border-radius: 12px; /* Increased rounding */
+        box-shadow: 0 4px 15px rgba(0, 61, 107, 0.2); /* Deeper shadow */
+        margin-bottom: 30px;
+        /* ADICIONADO PARA POSICIONAR O BOTÃO DE VOLTAR */
         display: flex;
-        align-items: center;
         justify-content: space-between;
-        gap: 12px;
-        margin-bottom: 18px;
-      }
-      .brand strong {
-        font-size: 1.15rem;
-      }
-      .card {
-        background: var(--card);
-        border-radius: var(--radius);
-        padding: 20px;
-        box-shadow: 0 12px 30px rgba(2, 6, 23, 0.06);
-      }
-      .grid {
-        display: grid;
-        grid-template-columns: 1fr 360px;
-        gap: 18px;
-        align-items: start;
-      }
-      h1 {
-        margin: 0 0 8px 0;
-        font-size: 1.6rem;
-      }
-      p.lead {
-        margin: 0 0 12px 0;
-        color: var(--muted);
-      }
-      form {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-      }
-      label {
-        font-size: 0.9rem;
-        color: var(--muted);
-      }
-      input[type="text"],
-      input[type="email"],
-      input[type="tel"],
-      select,
-      textarea {
-        width: 100%;
-        padding: 10px 12px;
-        border-radius: 10px;
-        border: 1px solid #e6e9ef;
-        font-size: 0.95rem;
-        outline: none;
-      }
-      textarea {
-        min-height: 140px;
-        resize: vertical;
-      }
-      .row {
-        display: flex;
-        gap: 10px;
-      }
-      .row > * {
-        flex: 1;
-      }
-      .actions {
-        display: flex;
-        gap: 10px;
         align-items: center;
       }
-      .btn {
-        background: var(--accent);
-        color: #fff;
-        border: none;
-        padding: 10px 14px;
-        border-radius: 10px;
-        cursor: pointer;
+
+      .brand-container {
+          text-align: right;
       }
-      .btn.secondary {
-        background: #eef2f7;
-        color: var(--text);
+
+      .brand {
+        font-size: 1.8rem;
+        font-weight: 700;
       }
+
       .hint {
         font-size: 0.85rem;
-        color: var(--muted);
+        color: rgba(255, 255, 255, 0.8);
+        margin-top: 4px;
       }
-      .success {
-        background: #ecfdf5;
-        color: #065f46;
-        padding: 10px;
-        border-radius: 8px;
-        border: 1px solid #bbf7d0;
+      
+      /* NOVO CSS PARA O BOTÃO DE VOLTAR (AGORA EM FORMATO DE BOLA) */
+      .back-btn {
+          display: flex;
+          align-items: center;
+          justify-content: center; /* Centraliza a seta */
+          color: var(--white);
+          text-decoration: none;
+          
+          /* Estilo de Bola */
+          width: 40px; 
+          height: 40px; 
+          padding: 0; /* Remove padding para usar width/height fixos */
+          border-radius: 50%; /* Formato de bola */
+          
+          background-color: rgba(255, 255, 255, 0.2); /* Fundo sutil */
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+          transition: background-color 0.3s ease, transform 0.2s ease;
+      }
+
+      .back-btn:hover {
+          background-color: rgba(255, 255, 255, 0.3);
+          transform: translateY(-1px);
+      }
+
+      .back-btn svg {
+          width: 20px;
+          height: 20px;
+          stroke: var(--white);
+          fill: none;
+          flex-shrink: 0;
+      }
+
+
+      .grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 30px;
+      }
+
+      .card {
+        background: var(--card-bg);
+        padding: 2.5rem; /* Increased padding */
+        border-radius: 16px; /* Increased rounding */
+        box-shadow: 0 10px 30px var(--shadow-color);
+        border: 1px solid var(--border-color); /* Subtle border */
+      }
+
+      h1 {
+        color: var(--primary-dark);
+        font-size: 1.8rem;
+        margin-top: 0;
+      }
+
+      h2, h3 {
+        color: var(--primary-dark);
+      }
+
+      .lead {
+        font-size: 1.1rem;
+        margin-bottom: 1.5rem;
+        color: #555;
+      }
+
+      .row {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 16px;
+      }
+      
+      .row > div {
+          flex: 1;
+      }
+
+      label {
+        font-weight: 600;
+        color: var(--primary-dark);
+        display: block;
+        margin-bottom: 4px;
+        font-size: 0.95rem;
+      }
+      
+      label strong {
+          position: relative;
+      }
+
+      /* REMOVENDO O ASTERISCO PERMANENTE E VISUALMENTE POLUENTE */
+      label strong::after {
+          content: ''; 
+      }
+      
+      #telefone + .hint {
+        /* Remove required indicator for non-required phone field */
         display: none;
       }
-      .error {
-        color: #dc2626;
-        font-size: 0.9rem;
-        display: none;
+      
+      #consent strong::after {
+        /* Remove required indicator for checkbox label as it's handled below */
+        content: '';
       }
-      .contacts {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
+
+      input[type="checkbox"] + strong::after {
+          content: '';
       }
-      .contact-item {
-        display: flex;
-        gap: 10px;
-        align-items: center;
+      
+      .hint strong::after {
+          content: '';
       }
-      .map {
+      
+      .actions .hint {
+          color: var(--text-color);
+          font-size: 0.8rem;
+          margin-top: 0;
+      }
+      
+      input[type="checkbox"] {
+          width: auto;
+          margin-right: 8px;
+          vertical-align: middle;
+      }
+      
+      /* Target all inputs/select/textarea except checkbox */
+      input:not([type="checkbox"]), select, textarea {
         width: 100%;
-        height: 220px;
-        border-radius: 10px;
-        overflow: hidden;
-        border: 1px solid #e6e9ef;
+        padding: 12px;
+        margin-top: 6px;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        background-color: var(--bg-secondary);
+        color: var(--text-color);
+        font-size: 1rem;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
       }
-      @media (max-width: 980px) {
-        .grid {
-          grid-template-columns: 1fr;
-        }
+
+      input:focus, select:focus, textarea:focus {
+        border-color: var(--primary-green-medium);
+        box-shadow: 0 0 0 3px rgba(13, 122, 82, 0.2);
+        outline: none;
+        background-color: var(--white);
+      }
+      
+      textarea {
+          resize: vertical;
+          min-height: 120px;
+      }
+
+      .error {
+        color: #d9534f; /* A strong red for error */
+        font-size: 0.85rem;
+        margin-top: 4px;
+        display: none;
+        font-weight: 500;
+      }
+      
+      .field-error input, .field-error select, .field-error textarea {
+          border-color: #d9534f !important;
+      }
+
+      .success {
+        background-color: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+        padding: 15px;
+        border-radius: 8px;
+        /* Texto atualizado para mailto */
+        font-weight: 500;
+        margin-bottom: 1.5rem;
+        display: none;
+      }
+
+      .actions {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-top: 1.5rem;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        padding: 12px 25px;
+        border-radius: 50px;
+        font-weight: 600;
+        cursor: pointer;
+        border: none;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .btn.primary {
+        background: var(--primary-green-medium);
+        color: var(--white);
+        box-shadow: 0 4px 10px rgba(13, 122, 82, 0.4);
+      }
+
+      .btn.primary:hover {
+        background: var(--primary-green-light);
+        box-shadow: 0 6px 15px rgba(13, 122, 82, 0.6);
+        transform: translateY(-2px);
+      }
+
+      .btn.secondary {
+        background: var(--bg-secondary);
+        color: var(--primary-dark);
+        border: 1px solid var(--border-color);
+      }
+
+      .btn.secondary:hover {
+        background: var(--primary-dark);
+        color: white;
+        border-color: var(--primary-dark);
+      }
+
+      .map iframe {
+        width: 100%;
+        height: 350px;
+        border: none;
+        border-radius: 12px;
+        box-shadow: 0 5px 15px var(--shadow-color);
+      }
+      
+      .contact-item {
+          margin-bottom: 10px;
+      }
+      
+      .contact-item span {
+          display: block;
+          color: #555;
+      }
+
+      footer {
+        text-align: center;
+        margin-top: 40px;
+        color: #777;
+        font-size: 0.85rem;
+        padding: 10px 0;
+        border-top: 1px solid var(--border-color);
+      }
+      
+      /* Responsive Design */
+      @media (max-width: 900px) {
+          .grid {
+              grid-template-columns: 1fr;
+          }
+          .row {
+              flex-direction: column;
+              gap: 0;
+          }
+          .card {
+              padding: 1.5rem;
+          }
+          .actions {
+              justify-content: space-between;
+          }
+          .actions .hint {
+              margin-left: 0 !important;
+              flex-basis: 100%;
+              text-align: right;
+          }
+          header {
+              padding: 1.5rem;
+              flex-direction: row; /* Keep elements side-by-side */
+              align-items: flex-start;
+          }
+          .brand-container {
+              text-align: left;
+              margin-left: 15px; /* Separate button and brand info */
+          }
+          .brand {
+              font-size: 1.5rem;
+          }
+          .map iframe {
+              height: 300px;
+          }
       }
     </style>
+    <!-- Incluindo a fonte Inter para um visual moderno, apesar do fallback em style -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   </head>
   <body>
     <div class="wrap">
       <header>
-        <div class="brand">
-          <strong>Colégio Cívico Militar Onze de Outubro</strong>
-          <div class="hint">
-            Entre em contato — responderemos em até 48 horas
-          </div>
+        <!-- BOTÃO DE VOLTAR EM FORMATO DE BOLA -->
+        <a href="/" class="back-btn" aria-label="Voltar para a página inicial">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 12H5"/><path d="m12 19-7-7 7-7"/>
+            </svg>
+        </a>
+        <div class="brand-container">
+            <div class="brand">
+              <strong>Colégio Cívico Militar Onze de Outubro</strong>
+              <div class="hint">Entre em contato — responderemos em até 48 horas</div>
+            </div>
         </div>
       </header>
 
       <main class="grid">
         <section class="card">
-          <h1>Fale conosco</h1>
+          <h1>Fale Conosco</h1>
           <p class="lead">
-            Use o formulário abaixo para nos enviar uma mensagem. Preencha todos
-            os campos obrigatórios.
+            Use o formulário abaixo para nos enviar uma mensagem. Preencha todos os campos obrigatórios.
           </p>
 
-          <div
-            id="statusSuccess"
-            class="success"
-            role="status"
-            aria-live="polite"
-          >
-            Mensagem enviada com sucesso.
+          <div id="statusSuccess" class="success" role="status" aria-live="polite">
+            Seu cliente de e-mail será aberto para finalizar o envio da mensagem. Por favor, confirme o envio por lá.
+          </div>
+          
+          <div id="statusError" class="success" style="background-color: #f8d7da; color: #721c24; border-color: #f5c6cb;">
+              Não foi possível validar o formulário. Por favor, corrija os erros e tente novamente.
           </div>
 
           <form id="contactForm" novalidate>
             <div class="row">
-              <div>
+              <div class="field-container">
                 <label for="nome"><strong>Nome</strong></label>
-                <input
-                  id="nome"
-                  name="nome"
-                  type="text"
-                  placeholder="Seu nome completo"
-                  required
-                />
-                <div class="error" id="errNome">
-                  Por favor informe seu nome.
-                </div>
+                <input id="nome" name="nome" type="text" placeholder="Seu nome completo" required />
+                <div class="error" id="errNome">Por favor, informe seu nome completo.</div>
               </div>
-              <div>
+              <div class="field-container">
                 <label for="telefone"><strong>Telefone</strong></label>
-                <input
-                  id="telefone"
-                  name="telefone"
-                  type="tel"
-                  placeholder="(00) 0 0000-0000"
-                />
+                <input id="telefone" name="telefone" type="tel" placeholder="(00) 0 0000-0000" />
+                 <div class="hint" id="hintTelefone" style="color: #777; margin-top: 4px;">Este campo é opcional.</div>
               </div>
             </div>
 
             <div class="row">
-              <div>
+              <div class="field-container">
                 <label for="email"><strong>E-mail</strong></label>
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  placeholder="seu@exemplo.com"
-                  required
-                />
-                <div class="error" id="errEmail">
-                  Por favor informe um e-mail válido.
-                </div>
+                <input id="email" name="email" type="email" placeholder="seu@exemplo.com" required />
+                <div class="error" id="errEmail">Por favor, informe um e-mail válido.</div>
               </div>
-              <div>
+              <div class="field-container">
                 <label for="assunto"><strong>Assunto</strong></label>
                 <select id="assunto" name="assunto" required>
                   <option value="">Selecione...</option>
-                  <option>Suporte</option>
-                  <option>Comercial</option>
-                  <option>Parcerias</option>
+                  <option>Suporte Técnico</option>
+                  <option>Matrículas e Documentação</option>
+                  <option>Parcerias e Colaborações</option>
                   <option>Outros</option>
                 </select>
                 <div class="error" id="errAssunto">Selecione um assunto.</div>
               </div>
             </div>
 
-            <div>
+            <div class="field-container">
               <label for="mensagem"><strong>Mensagem</strong></label>
-              <textarea
-                id="mensagem"
-                name="mensagem"
-                placeholder="Escreva sua mensagem aqui"
-                required
-              ></textarea>
-              <div class="error" id="errMensagem">
-                A mensagem não pode ficar vazia.
-              </div>
+              <textarea id="mensagem" name="mensagem" placeholder="Escreva sua mensagem aqui (mínimo de 10 caracteres)" required></textarea>
+              <div class="error" id="errMensagem">A mensagem não pode ficar vazia e deve ter no mínimo 10 caracteres.</div>
             </div>
 
-            <div>
-              <label
-                ><input id="consent" type="checkbox" />
-                <strong>Concordo em ser contatado</strong></label
-              >
-              <div class="hint">
-                Ao marcar você aceita que usemos seus dados para responder ao
-                contato.
+            <div class="field-container">
+              <label><input id="consent" type="checkbox" /> <strong>Concordo em ser contatado</strong></label>
+              <div class="hint" style="color: #777;">
+                Ao marcar, você aceita que usemos seus dados para responder ao contato.
               </div>
-              <div class="error" id="errConsent">
-                É necessário concordar para prosseguir.
-              </div>
+              <div class="error" id="errConsent">É necessário concordar para prosseguir.</div>
             </div>
 
             <div class="actions">
-              <button type="submit" class="btn">Enviar mensagem</button>
-              <button type="button" id="resetBtn" class="btn secondary">
-                Limpar
-              </button>
-              <div class="hint" style="margin-left: auto">
-                Campos com * são obrigatórios
-              </div>
+              <button type="submit" class="btn primary" id="submitBtn">Enviar mensagem</button>
+              <button type="button" id="resetBtn" class="btn secondary">Limpar</button>
+              <!-- Removido o (*) da dica, já que ele não é mais exibido de forma permanente -->
+              <div class="hint">Campos com borda vermelha são obrigatórios.</div>
             </div>
           </form>
         </section>
 
         <aside class="card">
-          <h2>Outras formas de contato</h2>
-
+          <h2>Outras Formas de Contato</h2>
           <div class="contacts">
+            <div class="contact-item"><strong>Telefone (Secretaria):</strong> <span class="hint">+55 (43) 3244-9999</span></div>
+            <div class="contact-item"><strong>E-mail (Geral):</strong> <span class="hint">secretaria@colegiomilitar.com.br</span></div>
             <div class="contact-item">
-              <strong>Telefone:</strong
-              ><span class="hint">+55 (41) 9xxxx-xxxx</span>
-            </div>
-            <div class="contact-item">
-              <strong>E-mail:</strong
-              ><span class="hint">contato@meusite.com</span>
-            </div>
-            <div class="contact-item">
-              <strong>Endereço:</strong
-              ><span class="hint"
-                >R. Prof. Bento Mussurunga, 608 - J - Bandeirantes, Cambé - PR,
-                86188-070</span
-              >
+              <strong>Endereço:</strong>
+              <span class="hint">R. Prof. Bento Mussurunga, 608 - J - Bandeirantes, Cambé - PR, 86188-070</span>
             </div>
           </div>
 
-          <h3 style="margin-top: 14px">Localização</h3>
+          <h3 style="margin-top: 25px">Localização</h3>
           <div class="map" aria-hidden="false">
-            <!-- Exemplo: substitua o src abaixo pelo link do Google Maps ou outro iframe de mapa -->
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3664.1078781383453!2d-51.2233927!3d-23.3118444!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94eb5b672621c0bf%3A0x8893c4b4c70c5f9d!2s11%20De%20Outubro%2C%20C%20E-Ef%20M!5e0!3m2!1spt-BR!2sbr!4v1761219976652!5m2!1spt-BR!2sbr"
-              width="600"
-              height="450"
-              style="border: 0"
-              allowfullscreen=""
+              title="Mapa da R. Prof. Bento Mussurunga, 608 em Cambé, PR"
               loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"
-            ></iframe>
+              width="100%"
+              height="350"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3663.7027588302324!2d-51.248386424606785!3d-23.28448967905186!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94eb8b8095d85d71%3A0x2a9e22709247c4a1!2sR.%20Prof.%20Bento%20Mussurunga%2C%20608%20-%20J%20-%20Bandeirantes%2C%20Camb%C3%A9%20-%20PR%2C%2086188-070!5e0!3m2!1spt-BR!2sbr!4v1718817293774!5m2!1spt-BR!2sbr" 
+              allowfullscreen>
+            </iframe>
           </div>
-
-          <h3 style="margin-top: 12px">Horário de atendimento</h3>
-          <div class="hint">Segunda a Sexta, 09:00 — 18:00</div>
         </aside>
       </main>
-
-      <footer
-        style="
-          text-align: center;
-          margin-top: 18px;
-          color: var(--muted);
-          font-size: 0.95rem;
-        "
-      >
-        © <strong>Meu Site</strong> — Desenvolvido com HTML, CSS e JavaScript
-      </footer>
     </div>
 
+    <footer>
+      &copy; 2024 Colégio Cívico Militar Onze de Outubro. Todos os direitos reservados.
+    </footer>
+
     <script>
-      const form = document.getElementById("contactForm");
-      const statusSuccess = document.getElementById("statusSuccess");
-      const resetBtn = document.getElementById("resetBtn");
+      document.addEventListener('DOMContentLoaded', () => {
+        const form = document.getElementById('contactForm');
+        const resetBtn = document.getElementById('resetBtn');
+        const statusSuccess = document.getElementById('statusSuccess');
+        const statusError = document.getElementById('statusError');
+        const submitBtn = document.getElementById('submitBtn');
 
-      function showError(id, show) {
-        const el = document.getElementById(id);
-        el.style.display = show ? "block" : "none";
-      }
+        const inputs = {
+          nome: document.getElementById('nome'),
+          email: document.getElementById('email'),
+          assunto: document.getElementById('assunto'),
+          mensagem: document.getElementById('mensagem'),
+          consent: document.getElementById('consent'),
+          telefone: document.getElementById('telefone')
+        };
+        
+        const errors = {
+          nome: document.getElementById('errNome'),
+          email: document.getElementById('errEmail'),
+          assunto: document.getElementById('errAssunto'),
+          mensagem: document.getElementById('errMensagem'),
+          consent: document.getElementById('errConsent'),
+        };
 
-      function validateEmail(email) {
-        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-      }
-
-      form.addEventListener("submit", function (e) {
-        e.preventDefault();
-        statusSuccess.style.display = "none";
-
-        const nome = document.getElementById("nome").value.trim();
-        const telefone = document.getElementById("telefone").value.trim();
-        const email = document.getElementById("email").value.trim();
-        const assunto = document.getElementById("assunto").value;
-        const mensagem = document.getElementById("mensagem").value.trim();
-        const consent = document.getElementById("consent").checked;
-
-        let valid = true;
-        showError("errNome", !nome);
-        showError("errEmail", !email || !validateEmail(email));
-        showError("errAssunto", !assunto);
-        showError("errMensagem", !mensagem);
-        showError("errConsent", !consent);
-
-        if (
-          !nome ||
-          !email ||
-          !validateEmail(email) ||
-          !assunto ||
-          !mensagem ||
-          !consent
-        ) {
-          valid = false;
+        // Utility function to show/hide error message and styling
+        function displayError(inputElement, errorMessageElement, isValid) {
+          const container = inputElement.closest('.field-container') || inputElement.parentNode;
+          
+          if (isValid) {
+            errorMessageElement.style.display = 'none';
+            if (container) container.classList.remove('field-error');
+            inputElement.classList.remove('input-error');
+          } else {
+            errorMessageElement.style.display = 'block';
+            if (container) container.classList.add('field-error');
+            inputElement.classList.add('input-error');
+          }
         }
+        
+        // Simple email validation regex
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-        if (!valid) {
-          return;
+        function validateForm() {
+          let isValid = true;
+
+          // 1. Validate Nome
+          const isNomeValid = inputs.nome.value.trim().length > 0;
+          displayError(inputs.nome, errors.nome, isNomeValid);
+          if (!isNomeValid) isValid = false;
+
+          // 2. Validate Email
+          const isEmailValid = emailRegex.test(inputs.email.value.trim());
+          displayError(inputs.email, errors.email, isEmailValid);
+          if (!isEmailValid) isValid = false;
+
+          // 3. Validate Assunto
+          const isAssuntoValid = inputs.assunto.value !== "";
+          displayError(inputs.assunto, errors.assunto, isAssuntoValid);
+          if (!isAssuntoValid) isValid = false;
+
+          // 4. Validate Mensagem (Min length 10 chars)
+          const isMensagemValid = inputs.mensagem.value.trim().length >= 10;
+          displayError(inputs.mensagem, errors.mensagem, isMensagemValid);
+          if (!isMensagemValid) isValid = false;
+
+          // 5. Validate Consent Checkbox
+          const isConsentValid = inputs.consent.checked;
+          // Note: Checkboxes don't have the same styling, so we only use the error message here
+          errors.consent.style.display = isConsentValid ? 'none' : 'block';
+          if (!isConsentValid) isValid = false;
+          
+          return isValid;
         }
+        
+        // Add live validation on blur for better UX
+        Object.values(inputs).forEach(input => {
+            if (input.type !== 'checkbox') {
+                input.addEventListener('blur', () => {
+                    // Only re-validate if there was an error showing or if it's required
+                    if (input.required || input.classList.contains('input-error')) {
+                       validateForm();
+                    }
+                });
+            } else {
+                 input.addEventListener('change', validateForm);
+            }
+        });
 
-        // AQUI: integrar com backend via fetch() ou outra API para envio real.
-        // Simulação de envio:
-        statusSuccess.textContent =
-          "Obrigado, " + nome + "! Sua mensagem foi enviada.";
-        statusSuccess.style.display = "block";
-        form.reset();
-      });
 
-      resetBtn.addEventListener("click", function () {
-        form.reset();
-        document
-          .querySelectorAll(".error")
-          .forEach((e) => (e.style.display = "none"));
-        statusSuccess.style.display = "none";
+        // Submission Handler
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          statusSuccess.style.display = 'none';
+          statusError.style.display = 'none';
+          submitBtn.disabled = true;
+          submitBtn.textContent = 'Verificando...';
+
+          if (validateForm()) {
+            const nome = inputs.nome.value.trim();
+            const email = inputs.email.value.trim();
+            const telefone = inputs.telefone.value.trim();
+            const assunto = inputs.assunto.value;
+
+            // Limpa o botão de enviar e mostra a mensagem de sucesso
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Enviar mensagem';
+            statusSuccess.style.display = 'block';
+
+            // Prepara a mensagem para o mailto
+            const recipient = 'luan.galatti@escola.pr.gov.br';
+            const subject = encodeURIComponent(`[Colégio Contato] - ${assunto}`);
+
+            let body = `Mensagem Enviada Pelo Formulário de Contato:\n\n`;
+            body += `Nome: ${nome}\n`;
+            body += `Email: ${email}\n`;
+            if (telefone) {
+                body += `Telefone: ${telefone}\n`;
+            }
+            body += `Assunto Selecionado: ${assunto}\n\n`;
+            body += `--- Mensagem ---\n`;
+            body += `${inputs.mensagem.value.trim()}\n\n`;
+            body += `------------------\n`;
+            body += `Por favor, responda diretamente para ${email}.`;
+
+            const encodedBody = encodeURIComponent(body);
+            const mailtoLink = `mailto:${recipient}?subject=${subject}&body=${encodedBody}`;
+
+            // Abre o cliente de e-mail do usuário
+            // O usuário precisa clicar em "Enviar" no seu aplicativo de e-mail
+            window.location.href = mailtoLink;
+            
+          } else {
+            // Validation failed
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Enviar mensagem';
+            statusError.textContent = 'Por favor, preencha todos os campos obrigatórios corretamente.';
+            statusError.style.display = 'block';
+            
+            // Scroll to the first error if validation fails
+            const firstError = document.querySelector('.error[style*="block"], .error:not([style*="none"])');
+            if (firstError) {
+                firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+          }
+        });
+
+        // Reset Handler
+        resetBtn.addEventListener('click', () => {
+          form.reset();
+          statusSuccess.style.display = 'none';
+          statusError.style.display = 'none';
+          // Hide all error messages explicitly and remove error classes
+          Object.values(errors).forEach(err => err.style.display = 'none');
+          document.querySelectorAll('.field-container').forEach(c => c.classList.remove('field-error'));
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Enviar mensagem';
+        });
       });
     </script>
   </body>
