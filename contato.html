@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Contato</title>
+    <style>
+      :root {
+        --bg: #f7fafc;
+        --card: #ffffff;
+        --accent: #0ea5e9;
+        --text: #0f172a;
+        --muted: #6b7280;
+        --radius: 12px;
+        --maxw: 900px;
+        font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: linear-gradient(180deg, #eef2ff 0%, var(--bg) 40%);
+        color: var(--text);
+      }
+      .wrap {
+        max-width: var(--maxw);
+        margin: 36px auto;
+        padding: 20px;
+      }
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 18px;
+      }
+      .brand strong {
+        font-size: 1.15rem;
+      }
+      .card {
+        background: var(--card);
+        border-radius: var(--radius);
+        padding: 20px;
+        box-shadow: 0 12px 30px rgba(2, 6, 23, 0.06);
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr 360px;
+        gap: 18px;
+        align-items: start;
+      }
+      h1 {
+        margin: 0 0 8px 0;
+        font-size: 1.6rem;
+      }
+      p.lead {
+        margin: 0 0 12px 0;
+        color: var(--muted);
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      label {
+        font-size: 0.9rem;
+        color: var(--muted);
+      }
+      input[type="text"],
+      input[type="email"],
+      input[type="tel"],
+      select,
+      textarea {
+        width: 100%;
+        padding: 10px 12px;
+        border-radius: 10px;
+        border: 1px solid #e6e9ef;
+        font-size: 0.95rem;
+        outline: none;
+      }
+      textarea {
+        min-height: 140px;
+        resize: vertical;
+      }
+      .row {
+        display: flex;
+        gap: 10px;
+      }
+      .row > * {
+        flex: 1;
+      }
+      .actions {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+      .btn {
+        background: var(--accent);
+        color: #fff;
+        border: none;
+        padding: 10px 14px;
+        border-radius: 10px;
+        cursor: pointer;
+      }
+      .btn.secondary {
+        background: #eef2f7;
+        color: var(--text);
+      }
+      .hint {
+        font-size: 0.85rem;
+        color: var(--muted);
+      }
+      .success {
+        background: #ecfdf5;
+        color: #065f46;
+        padding: 10px;
+        border-radius: 8px;
+        border: 1px solid #bbf7d0;
+        display: none;
+      }
+      .error {
+        color: #dc2626;
+        font-size: 0.9rem;
+        display: none;
+      }
+      .contacts {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .contact-item {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+      .map {
+        width: 100%;
+        height: 220px;
+        border-radius: 10px;
+        overflow: hidden;
+        border: 1px solid #e6e9ef;
+      }
+      @media (max-width: 980px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <div class="brand">
+          <strong>Colégio Cívico Militar Onze de Outubro</strong>
+          <div class="hint">
+            Entre em contato — responderemos em até 48 horas
+          </div>
+        </div>
+      </header>
+
+      <main class="grid">
+        <section class="card">
+          <h1>Fale conosco</h1>
+          <p class="lead">
+            Use o formulário abaixo para nos enviar uma mensagem. Preencha todos
+            os campos obrigatórios.
+          </p>
+
+          <div
+            id="statusSuccess"
+            class="success"
+            role="status"
+            aria-live="polite"
+          >
+            Mensagem enviada com sucesso.
+          </div>
+
+          <form id="contactForm" novalidate>
+            <div class="row">
+              <div>
+                <label for="nome"><strong>Nome</strong></label>
+                <input
+                  id="nome"
+                  name="nome"
+                  type="text"
+                  placeholder="Seu nome completo"
+                  required
+                />
+                <div class="error" id="errNome">
+                  Por favor informe seu nome.
+                </div>
+              </div>
+              <div>
+                <label for="telefone"><strong>Telefone</strong></label>
+                <input
+                  id="telefone"
+                  name="telefone"
+                  type="tel"
+                  placeholder="(00) 0 0000-0000"
+                />
+              </div>
+            </div>
+
+            <div class="row">
+              <div>
+                <label for="email"><strong>E-mail</strong></label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  placeholder="seu@exemplo.com"
+                  required
+                />
+                <div class="error" id="errEmail">
+                  Por favor informe um e-mail válido.
+                </div>
+              </div>
+              <div>
+                <label for="assunto"><strong>Assunto</strong></label>
+                <select id="assunto" name="assunto" required>
+                  <option value="">Selecione...</option>
+                  <option>Suporte</option>
+                  <option>Comercial</option>
+                  <option>Parcerias</option>
+                  <option>Outros</option>
+                </select>
+                <div class="error" id="errAssunto">Selecione um assunto.</div>
+              </div>
+            </div>
+
+            <div>
+              <label for="mensagem"><strong>Mensagem</strong></label>
+              <textarea
+                id="mensagem"
+                name="mensagem"
+                placeholder="Escreva sua mensagem aqui"
+                required
+              ></textarea>
+              <div class="error" id="errMensagem">
+                A mensagem não pode ficar vazia.
+              </div>
+            </div>
+
+            <div>
+              <label
+                ><input id="consent" type="checkbox" />
+                <strong>Concordo em ser contatado</strong></label
+              >
+              <div class="hint">
+                Ao marcar você aceita que usemos seus dados para responder ao
+                contato.
+              </div>
+              <div class="error" id="errConsent">
+                É necessário concordar para prosseguir.
+              </div>
+            </div>
+
+            <div class="actions">
+              <button type="submit" class="btn">Enviar mensagem</button>
+              <button type="button" id="resetBtn" class="btn secondary">
+                Limpar
+              </button>
+              <div class="hint" style="margin-left: auto">
+                Campos com * são obrigatórios
+              </div>
+            </div>
+          </form>
+        </section>
+
+        <aside class="card">
+          <h2>Outras formas de contato</h2>
+
+          <div class="contacts">
+            <div class="contact-item">
+              <strong>Telefone:</strong
+              ><span class="hint">+55 (41) 9xxxx-xxxx</span>
+            </div>
+            <div class="contact-item">
+              <strong>E-mail:</strong
+              ><span class="hint">contato@meusite.com</span>
+            </div>
+            <div class="contact-item">
+              <strong>Endereço:</strong
+              ><span class="hint"
+                >R. Prof. Bento Mussurunga, 608 - J - Bandeirantes, Cambé - PR,
+                86188-070</span
+              >
+            </div>
+          </div>
+
+          <h3 style="margin-top: 14px">Localização</h3>
+          <div class="map" aria-hidden="false">
+            <!-- Exemplo: substitua o src abaixo pelo link do Google Maps ou outro iframe de mapa -->
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3664.1078781383453!2d-51.2233927!3d-23.3118444!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94eb5b672621c0bf%3A0x8893c4b4c70c5f9d!2s11%20De%20Outubro%2C%20C%20E-Ef%20M!5e0!3m2!1spt-BR!2sbr!4v1761219976652!5m2!1spt-BR!2sbr"
+              width="600"
+              height="450"
+              style="border: 0"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+            ></iframe>
+          </div>
+
+          <h3 style="margin-top: 12px">Horário de atendimento</h3>
+          <div class="hint">Segunda a Sexta, 09:00 — 18:00</div>
+        </aside>
+      </main>
+
+      <footer
+        style="
+          text-align: center;
+          margin-top: 18px;
+          color: var(--muted);
+          font-size: 0.95rem;
+        "
+      >
+        © <strong>Meu Site</strong> — Desenvolvido com HTML, CSS e JavaScript
+      </footer>
+    </div>
+
+    <script>
+      const form = document.getElementById("contactForm");
+      const statusSuccess = document.getElementById("statusSuccess");
+      const resetBtn = document.getElementById("resetBtn");
+
+      function showError(id, show) {
+        const el = document.getElementById(id);
+        el.style.display = show ? "block" : "none";
+      }
+
+      function validateEmail(email) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      }
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        statusSuccess.style.display = "none";
+
+        const nome = document.getElementById("nome").value.trim();
+        const telefone = document.getElementById("telefone").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const assunto = document.getElementById("assunto").value;
+        const mensagem = document.getElementById("mensagem").value.trim();
+        const consent = document.getElementById("consent").checked;
+
+        let valid = true;
+        showError("errNome", !nome);
+        showError("errEmail", !email || !validateEmail(email));
+        showError("errAssunto", !assunto);
+        showError("errMensagem", !mensagem);
+        showError("errConsent", !consent);
+
+        if (
+          !nome ||
+          !email ||
+          !validateEmail(email) ||
+          !assunto ||
+          !mensagem ||
+          !consent
+        ) {
+          valid = false;
+        }
+
+        if (!valid) {
+          return;
+        }
+
+        // AQUI: integrar com backend via fetch() ou outra API para envio real.
+        // Simulação de envio:
+        statusSuccess.textContent =
+          "Obrigado, " + nome + "! Sua mensagem foi enviada.";
+        statusSuccess.style.display = "block";
+        form.reset();
+      });
+
+      resetBtn.addEventListener("click", function () {
+        form.reset();
+        document
+          .querySelectorAll(".error")
+          .forEach((e) => (e.style.display = "none"));
+        statusSuccess.style.display = "none";
+      });
+    </script>
+  </body>
+</html>
