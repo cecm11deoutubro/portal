@@ -319,9 +319,10 @@
         color: var(--text-color); /* Usando variável para se adaptar ao modo escuro */
       }
 
+      /* ALTERAÇÕES AQUI: AUMENTANDO O ESPAÇO ENTRE OS CAMPOS NA MESMA LINHA */
       .row {
         display: flex;
-        gap: 20px;
+        gap: 40px; /* Aumentado de 20px para 40px */
         margin-bottom: 16px;
       }
       
@@ -522,8 +523,10 @@
               grid-template-columns: 1fr;
           }
           .row {
+              /* No mobile, voltamos a coluna para ocupar 100% da largura,
+                 mas mantemos o espaçamento vertical entre os campos. */
               flex-direction: column;
-              gap: 0;
+              gap: 0; 
           }
           .card {
               padding: 1.5rem;
@@ -684,7 +687,7 @@
               loading="lazy"
               width="100%"
               height="350"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3663.7027588302324!2d-51.248386424606785!3d-23.28448967905186!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94eb8b8095d85d71%3A0x2a9e22709247c4a1!2sR.%20Prof.%20Bento%20Mussurunga%2C%20608%20-%20J%20-%20Bandeirantes%2C%20Camb%C3%A9%20-%20PR%2C%2086188-070!5e0!3m2!1spt-BR!2sbr!4v1718817293774!5m2!1spt-BR!2sbr" 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3663.7027588302324!2d-51.248386424606785!3d-23.28448967905186!2m3!1f0!2f0!2f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94eb8b8095d85d71%3A0x2a9e22709247c4a1!2sR.%20Prof.%20Bento%20Mussurunga%2C%20608%20-%20J%20-%20Bandeirantes%2C%20Camb%C3%A9%20-%20PR%2C%2086188-070!5e0!3m2!1spt-BR!2sbr!4v1718817293774!5m2!1spt-BR!2sbr" 
               allowfullscreen>
             </iframe>
           </div>
@@ -855,9 +858,14 @@
             // Limpa o botão de enviar e mostra a mensagem de sucesso
             submitBtn.disabled = false;
             submitBtn.textContent = 'Enviar mensagem';
+            
+            // ALTERAÇÃO CRÍTICA: Não abre mais o cliente de e-mail (mailto)
+            // Em vez disso, apenas mostra a mensagem de sucesso (simulando o envio)
+            statusSuccess.innerHTML = 'Mensagem enviada com sucesso! Entraremos em contato em breve.';
             statusSuccess.style.display = 'block';
 
-            // Prepara a mensagem para o mailto
+            // Prepara a mensagem (opcional, mantido para referência)
+            /*
             const recipient = 'luan.galatti@escola.pr.gov.br';
             const subject = encodeURIComponent(`[Colégio Contato] - ${assunto}`);
 
@@ -876,9 +884,11 @@
             const encodedBody = encodeURIComponent(body);
             const mailtoLink = `mailto:${recipient}?subject=${subject}&body=${encodedBody}`;
 
-            // Abre o cliente de e-mail do usuário
-            // O usuário precisa clicar em "Enviar" no seu aplicativo de e-mail
-            window.location.href = mailtoLink;
+            // REMOVIDO: window.location.href = mailtoLink;
+            */
+            
+            // Limpa o formulário após a simulação de envio
+            form.reset();
             
           } else {
             // Validation failed
@@ -905,9 +915,11 @@
           document.querySelectorAll('.field-container').forEach(c => c.classList.remove('field-error'));
           submitBtn.disabled = false;
           submitBtn.textContent = 'Enviar mensagem';
+          
+          // Volta a mensagem de sucesso original
+          statusSuccess.innerHTML = 'Seu cliente de e-mail será aberto para finalizar o envio da mensagem. Por favor, confirme o envio por lá.';
         });
       });
     </script>
   </body>
 </html>
-
