@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Login - Sistema de Enquetes{% endblock %}
+
+{% block content %}
+<h2>Login</h2>
+<form method="POST">
+    <label>Usuário (Nome Completo):</label>
+    <input type="text" name="username" required>
+    <label>Senha (Email Escolar para Estudantes):</label>
+    <input type="password" name="password" required>
+    <button type="submit">Entrar</button>
+</form>
+<p><strong>Para Estudantes:</strong> Use seu nome completo como usuário e seu email escolar (ex: nome@escola.pr.gov.br) como senha. Se for a primeira vez, você será registrado automaticamente.</p>
+{% endblock %}

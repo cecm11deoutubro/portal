@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Criar Nova Enquete</h2>
+<form method="POST">
+    <label>Título:</label>
+    <input type="text" name="title" required>
+    <label>Pergunta:</label>
+    <textarea name="question" required></textarea>
+    <label>Opções (separadas por vírgula):</label>
+    <input type="text" name="options" placeholder="Opção 1, Opção 2, Opção 3" required>
+    <label>Limite de Tempo (opcional, YYYY-MM-DD HH:MM):</label>
+    <input type="text" name="expiration" placeholder="2025-12-31 23:59">
+    <button type="submit">Criar</button>
+</form>
+{% endblock %}

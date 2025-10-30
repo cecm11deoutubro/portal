@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Gerenciar Enquetes</h2>
+<table border="1">
+    <tr><th>ID</th><th>Título</th><th>Pergunta</th><th>Opções</th><th>Votos Totais</th><th>Ativa?</th><th>Expiração</th><th>Ações</th></tr>
+    {% for poll in polls %}
+        <tr>
+            <td>{{ poll.id }}</td>
+            <td>{{ poll.title }}</td>
+            <td>{{ poll.question[:50] }}...</td>
+            <td>{{ poll.options[:50] }}...</td>
+            <td>{{ poll.total_votes or 0 }}</td>
+            <td>{{ 'Sim' if poll.active else 'Não' }}{% if poll.is_expired %} (Expirada){% endif %}</td>
+            <td>{{ poll.expiration.strftime('%d/%m/%Y %H:%M') if poll.expiration else 'Sem limite' }}</td>
+            <td>
+                {% if session.role == 'admin' %}
+                    <form method="POST" action="{{ url_for('close_poll', poll_id=poll.id) }}" style="display: inline;" onsubmit="return confirm('Fechar enquete?');">
+                        <button type="submit" style="background: #ffc107; color: black; border: none; padding: 5px 10px; border-radius: 4px;">Fechar</button>
+                    </form>
+                    <form method="POST" action="{{ url_for('delete_poll', poll_id=poll.id) }}" style="display: inline;" onsubmit="return confirm('Deletar enquete e votos?');">
+                        <button type="submit" style="background: #dc3545; color: white; border: none; padding: 5px 10px; border-radius: 4px;">Deletar</button>
+                    </form>
+                {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+</table>
+<a href="{{ url_for('dashboard') }}">Voltar</a>
+{% endblock %}

@@ -1,0 +1,506 @@
+{% extends "base.html" %}
+
+{% block styles %}
+<style>
+    /* CSS Dinâmico e Profissional para a Enquete */
+    :root {
+        --enquete-primary: #4A90E2;
+        --enquete-secondary: #50C878;
+        --enquete-accent: #F5A623;
+        --enquete-bg: #F8F9FA;
+        --enquete-card-bg: #FFFFFF;
+        --enquete-text: #2C3E50;
+        --enquete-border: #E9ECEF;
+        --enquete-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        --enquete-transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        --enquete-radius: 12px;
+    }
+
+    body[data-theme="dark"] {
+        --enquete-bg: #1A1A1A;
+        --enquete-card-bg: #2D2D2D;
+        --enquete-text: #EDEDED;
+        --enquete-border: #404040;
+        --enquete-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .enquete-container {
+        max-width: 800px;
+        margin: 0 auto;
+        background: var(--enquete-bg);
+        min-height: 100vh;
+        padding: 20px;
+        font-family: 'Roboto', sans-serif;
+        color: var(--enquete-text);
+        transition: var(--enquete-transition);
+    }
+
+    .enquete-header {
+        text-align: center;
+        margin-bottom: 40px;
+        padding: 20px;
+        background: var(--enquete-card-bg);
+        border-radius: var(--enquete-radius);
+        box-shadow: var(--enquete-shadow);
+        transform: translateY(0);
+        transition: var(--enquete-transition);
+    }
+
+    .enquete-header h1 {
+        color: var(--enquete-primary);
+        font-size: 2.2em;
+        margin: 0 0 10px;
+        letter-spacing: -0.5px;
+    }
+
+    .enquete-header p {
+        color: var(--enquete-text);
+        font-size: 1.1em;
+        opacity: 0.8;
+    }
+
+    .progress-container {
+        position: relative;
+        background: var(--enquete-border);
+        height: 8px;
+        border-radius: 4px;
+        margin: 30px 0;
+        overflow: hidden;
+        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    #progress {
+        height: 100%;
+        background: linear-gradient(90deg, var(--enquete-primary), var(--enquete-secondary));
+        width: 0%;
+        border-radius: 4px;
+        transition: width 0.6s ease-out;
+        position: relative;
+        overflow: hidden;
+    }
+
+    #progress::after {
+        content: attr(data-label) '%';
+        position: absolute;
+        right: 8px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 0.8em;
+        font-weight: bold;
+        color: var(--enquete-card-bg);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    #progress.animate::after {
+        opacity: 1;
+    }
+
+    .pergunta {
+        display: none;
+        opacity: 0;
+        transform: translateY(20px) scale(0.98);
+        transition: var(--enquete-transition);
+        background: var(--enquete-card-bg);
+        padding: 30px;
+        border-radius: var(--enquete-radius);
+        box-shadow: var(--enquete-shadow);
+        margin-bottom: 20px;
+        border: 1px solid var(--enquete-border);
+    }
+
+    .pergunta.active {
+        display: block;
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+
+    .pergunta h3 {
+        color: var(--enquete-primary);
+        font-size: 1.5em;
+        margin: 0 0 25px;
+        border-bottom: 2px solid var(--enquete-border);
+        padding-bottom: 10px;
+    }
+
+    .opcoes-container {
+        display: grid;
+        gap: 15px;
+        margin-top: 20px;
+    }
+
+    .option-card {
+        background: var(--enquete-bg);
+        border: 2px solid var(--enquete-border);
+        border-radius: var(--enquete-radius);
+        padding: 18px;
+        cursor: pointer;
+        transition: var(--enquete-transition);
+        position: relative;
+        overflow: hidden;
+        transform: translateY(0);
+    }
+
+    .option-card:hover {
+        border-color: var(--enquete-primary);
+        box-shadow: 0 6px 24px rgba(74, 144, 226, 0.15);
+        transform: translateY(-2px);
+    }
+
+    .option-card.checked {
+        background: linear-gradient(135deg, var(--enquete-primary), var(--enquete-accent));
+        border-color: var(--enquete-primary);
+        color: white;
+        box-shadow: 0 8px 32px rgba(74, 144, 226, 0.25);
+        transform: scale(1.02);
+    }
+
+    .option-card.checked:hover {
+        transform: scale(1.02);
+    }
+
+    .option-card input[type="radio"] {
+        display: none;
+    }
+
+    .option-card::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 4px;
+        background: transparent;
+        transition: background 0.3s ease;
+    }
+
+    .option-card:hover::before,
+    .option-card.checked::before {
+        background: var(--enquete-secondary);
+    }
+
+    .option-card label {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        width: 100%;
+        margin: 0;
+        font-size: 1.1em;
+        font-weight: 500;
+    }
+
+    .option-card label::before {
+        content: '○';
+        font-size: 1.5em;
+        margin-right: 12px;
+        color: var(--enquete-primary);
+        transition: var(--enquete-transition);
+        flex-shrink: 0;
+    }
+
+    .option-card.checked label::before {
+        content: '●';
+        color: white;
+    }
+
+    textarea[name^="resposta-"] {
+        width: 100%;
+        min-height: 120px;
+        resize: vertical;
+        border: 2px solid var(--enquete-border);
+        border-radius: var(--enquete-radius);
+        padding: 15px;
+        font-size: 1em;
+        font-family: inherit;
+        transition: var(--enquete-transition);
+        background: var(--enquete-bg);
+        color: var(--enquete-text);
+    }
+
+    textarea[name^="resposta-"]:focus {
+        border-color: var(--enquete-primary);
+        box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+        outline: none;
+        transform: scale(1.01);
+    }
+
+    .navegacao {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 30px;
+        gap: 15px;
+    }
+
+    .btn-nav {
+        padding: 12px 24px;
+        border: none;
+        border-radius: var(--enquete-radius);
+        font-size: 1em;
+        font-weight: bold;
+        cursor: pointer;
+        transition: var(--enquete-transition);
+        flex: 1;
+        text-align: center;
+    }
+
+    .btn-prev {
+        background: var(--enquete-border);
+        color: var(--enquete-text);
+    }
+
+    .btn-prev:hover {
+        background: var(--enquete-primary);
+        color: white;
+        transform: translateX(-2px);
+    }
+
+    .btn-next {
+        background: linear-gradient(135deg, var(--enquete-primary), var(--enquete-secondary));
+        color: white;
+    }
+
+    .btn-next:hover:not(:disabled) {
+        transform: translateX(2px) scale(1.05);
+        box-shadow: 0 6px 24px rgba(74, 144, 226, 0.3);
+    }
+
+    .btn-next:disabled {
+        background: var(--enquete-border);
+        color: #6C757D;
+        cursor: not-allowed;
+        transform: none;
+    }
+
+    #fim {
+        display: none;
+        text-align: center;
+        padding: 40px;
+        background: linear-gradient(135deg, var(--enquete-secondary), var(--enquete-accent));
+        color: white;
+        border-radius: var(--enquete-radius);
+        box-shadow: var(--enquete-shadow);
+        margin-top: 20px;
+        opacity: 0;
+        transform: scale(0.9);
+        transition: var(--enquete-transition);
+    }
+
+    #fim.show {
+        display: block;
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    #fim h2 {
+        font-size: 2.5em;
+        margin: 0 0 15px;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    #fim p {
+        font-size: 1.2em;
+        margin: 0 0 30px;
+        opacity: 0.95;
+    }
+
+    @media (max-width: 768px) {
+        .enquete-container {
+            padding: 10px;
+        }
+
+        .pergunta {
+            padding: 20px;
+        }
+
+        .navegacao {
+            flex-direction: column;
+        }
+
+        .option-card {
+            padding: 15px;
+        }
+
+        .enquete-header h1 {
+            font-size: 1.8em;
+        }
+    }
+
+    .opcoes-container {
+        animation: fadeInUp 0.6s ease-out forwards;
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        * {
+            transition: none !important;
+            animation: none !important;
+            transform: none !important;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="enquete-container">
+    <div class="enquete-header">
+        <h1>Enquete Escolar Cívico-Militar</h1>
+        <p>Responda às perguntas abaixo. Sua opinião importa!</p>
+    </div>
+
+    <div class="progress-container">
+        <div id="progress" data-label="0"></div>
+    </div>
+
+    {% for i, pergunta in perguntas|enumerate %}
+        <div id="perg-{{ i }}" class="pergunta">
+            <h3>Pergunta {{ i + 1 }}: {{ pergunta.texto }}</h3>
+            {% if pergunta.tipo == 'multipla' %}
+                <div class="opcoes-container">
+                    {% for opcao in pergunta.opcoes %}
+                        <div class="option-card">
+                            <label>
+                                <input type="radio" name="resposta-{{ i }}" value="{{ opcao }}">
+                                {{ opcao }}
+                            </label>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <textarea name="resposta-{{ i }}" placeholder="Digite sua resposta aqui..."></textarea>
+            {% endif %}
+            <div class="navegacao">
+                {% if i > 0 %}
+                    <button type="button" class="btn-nav btn-prev" onclick="proximaPergunta({{ i - 1 }})">Anterior</button>
+                {% endif %}
+                {% if i < perguntas|length - 1 %}
+                    <button type="button" class="btn-nav btn-next" onclick="proximaPergunta({{ i }})">Próxima</button>
+                {% else %}
+                    <button type="submit" class="btn-nav btn-next" form="form-resposta">Enviar Respostas</button>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+
+    <div id="fim">
+        <h2>Obrigado!</h2>
+        <p>Sua participação foi registrada com sucesso. Você contribuiu para a melhoria da nossa escola.</p>
+        <button onclick="window.close()" style="padding: 12px 30px; background: rgba(255,255,255,0.2); border: 2px solid white; color: white; border-radius: 25px; font-size: 1.1em; cursor: pointer; transition: var(--enquete-transition);">Fechar</button>
+    </div>
+</div>
+
+<form id="form-resposta" style="display: none;"></form>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    let current = 0;
+    const total = {{ perguntas|length|default(0) }};
+    function proximaPergunta(i) {
+        const currentPerg = document.getElementById('perg-' + i);
+        const nextPerg = document.getElementById('perg-' + (i + 1));
+        const progressBar = document.getElementById('progress');
+
+        currentPerg.classList.remove('active');
+        currentPerg.style.opacity = '0';
+        currentPerg.style.transform = 'translateY(10px) scale(0.98)';
+
+        setTimeout(() => {
+            currentPerg.style.display = 'none';
+            if (i + 1 < total) {
+                nextPerg.style.display = 'block';
+                nextPerg.focus();
+                nextPerg.classList.add('active');
+                nextPerg.style.opacity = '0';
+                nextPerg.style.transform = 'translateY(20px) scale(0.98)';
+                setTimeout(() => {
+                    nextPerg.style.opacity = '1';
+                    nextPerg.style.transform = 'translateY(0) scale(1)';
+                }, 50);
+                current++;
+                const percent = Math.round((current / total) * 100);
+                progressBar.style.width = percent + '%';
+                progressBar.setAttribute('data-label', percent);
+                progressBar.classList.add('animate');
+                setTimeout(() => progressBar.classList.remove('animate'), 500);
+            } else {
+                const fim = document.getElementById('fim');
+                fim.style.display = 'block';
+                fim.classList.add('show');
+                current = total;
+            }
+        }, 300);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const firstPerg = document.querySelector('.pergunta');
+        if (firstPerg) firstPerg.classList.add('active');
+        if (total === 0) {
+            document.getElementById('fim').style.display = 'block';
+        }
+
+        const radios = document.querySelectorAll('input[type="radio"]');
+        radios.forEach(radio => {
+            const card = radio.closest('.option-card');
+            let isChecked = false;
+
+            card.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (isChecked) {
+                    radio.checked = false;
+                    card.classList.remove('checked');
+                    isChecked = false;
+                } else {
+                    radio.checked = true;
+                    card.classList.add('checked');
+                    isChecked = true;
+                }
+            });
+        });
+    });
+
+    document.getElementById('form-resposta').onsubmit = async (e) => {
+        e.preventDefault();
+        const respostas = [];
+        for (let i = 0; i < total; i++) {
+            const inputs = document.querySelectorAll(`input[name="resposta-${i}"]`);
+            let resp = '';
+            if (inputs.length > 0) {
+                const checked = Array.from(inputs).find(r => r.checked);
+                if (checked) {
+                    checked.closest('.option-card').classList.add('checked');
+                }
+                resp = checked ? checked.value : '';
+            } else {
+                const textarea = document.querySelector(`textarea[name="resposta-${i}"]`);
+                resp = textarea ? textarea.value : '';
+            }
+            respostas.push(resp);
+        }
+        try {
+            const response = await fetch('/enquete/{{ enquete_id }}', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ respostas })
+            });
+            if (response.ok) {
+                alert('Resposta enviada com sucesso! Obrigado!');
+                window.close();
+            } else {
+                alert('Erro ao enviar resposta. Tente novamente!');
+            }
+        } catch (err) {
+            alert('Erro de conexão: ' + err.message);
+        }
+    };
+</script>
+{% endblock %}

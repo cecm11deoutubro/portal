@@ -1,0 +1,291 @@
+{% extends "base.html" %}
+
+{% block styles %}
+<style>
+    /* CSS Dinâmico e Profissional para Dashboard - Enquetes Ativas */
+    :root {
+        --dash-primary: #4A90E2;
+        --dash-secondary: #50C878;
+        --dash-accent: #F5A623;
+        --dash-bg: #F8F9FA;
+        --dash-card-bg: #FFFFFF;
+        --dash-text: #2C3E50;
+        --dash-border: #E9ECEF;
+        --dash-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        --dash-transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        --dash-radius: 12px;
+    }
+
+    body[data-theme="dark"] {
+        --dash-bg: #1A1A1A;
+        --dash-card-bg: #2D2D2D;
+        --dash-text: #EDEDED;
+        --dash-border: #404040;
+        --dash-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .polls-container {
+        background: var(--dash-bg);
+        padding: 20px;
+        border-radius: var(--dash-radius);
+        box-shadow: var(--dash-shadow);
+    }
+
+    .poll-item {
+        background: var(--dash-card-bg);
+        border: 1px solid var(--dash-border);
+        border-radius: var(--dash-radius);
+        padding: 25px;
+        margin-bottom: 20px;
+        box-shadow: var(--dash-shadow);
+        transition: var(--dash-transition);
+    }
+
+    .poll-item:hover {
+        box-shadow: 0 6px 24px rgba(74, 144, 226, 0.15);
+        transform: translateY(-2px);
+    }
+
+    .poll-title {
+        color: var(--dash-primary);
+        font-size: 1.3em;
+        font-weight: bold;
+        margin-bottom: 10px;
+        border-bottom: 2px solid var(--dash-border);
+        padding-bottom: 8px;
+    }
+
+    .poll-question {
+        color: var(--dash-text);
+        font-size: 1.1em;
+        margin-bottom: 20px;
+        line-height: 1.5;
+    }
+
+    .poll-stats {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+        font-size: 0.9em;
+        color: var(--dash-text);
+        opacity: 0.8;
+    }
+
+    .options-container {
+        display: grid;
+        gap: 12px;
+        margin-bottom: 20px;
+    }
+
+    .option-card {
+        background: var(--dash-bg);
+        border: 2px solid var(--dash-border);
+        border-radius: var(--dash-radius);
+        padding: 15px;
+        cursor: pointer;
+        transition: var(--dash-transition);
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .option-card:hover {
+        border-color: var(--dash-primary);
+        box-shadow: 0 4px 12px rgba(74, 144, 226, 0.1);
+    }
+
+    .option-card input[type="radio"]:checked + .option-label {
+        background: linear-gradient(135deg, var(--dash-primary), var(--dash-accent));
+        color: white;
+        border-color: var(--dash-primary);
+    }
+
+    .option-card input[type="radio"] {
+        display: none;
+        margin-right: 10px;
+    }
+
+    .option-label {
+        flex: 1;
+        margin: 0;
+        font-size: 1em;
+        font-weight: 500;
+        cursor: pointer;
+        padding: 5px;
+        border-radius: var(--dash-radius);
+        transition: var(--dash-transition);
+        display: flex;
+        align-items: center;
+    }
+
+    .option-label::before {
+        content: '○';
+        font-size: 1.2em;
+        margin-right: 8px;
+        color: var(--dash-primary);
+        transition: var(--dash-transition);
+    }
+
+    .option-card input[type="radio"]:checked + .option-label::before {
+        content: '●';
+        color: white;
+    }
+
+    .percentage-badge {
+        background: var(--dash-secondary);
+        color: white;
+        padding: 4px 8px;
+        border-radius: 12px;
+        font-size: 0.85em;
+        font-weight: bold;
+        min-width: 40px;
+        text-align: center;
+        opacity: 0.9;
+    }
+
+    .vote-form {
+        text-align: right;
+    }
+
+    .vote-button {
+        background: linear-gradient(135deg, var(--dash-primary), var(--dash-secondary));
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: var(--dash-radius);
+        cursor: pointer;
+        font-weight: bold;
+        transition: var(--dash-transition);
+    }
+
+    .vote-button:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
+    }
+
+    .results-link {
+        margin-left: 10px;
+        color: var(--dash-secondary);
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .results-link:hover {
+        text-decoration: underline;
+    }
+
+    .expired-warning {
+        color: #dc3545;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    /* Responsivo */
+    @media (max-width: 768px) {
+        .poll-item {
+            padding: 15px;
+        }
+        .options-container {
+            gap: 10px;
+        }
+        .option-card {
+            padding: 12px;
+            flex-direction: column;
+            text-align: center;
+            gap: 8px;
+        }
+        .poll-stats {
+            flex-direction: column;
+            gap: 5px;
+            text-align: center;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<h2>Dashboard</h2>
+<nav>
+    {% if session.role == 'admin' %}
+        <a href="{{ url_for('create_poll') }}">Criar Enquete</a>
+        <a href="{{ url_for('admin_users') }}">Gerenciar Usuários</a>
+        <a href="{{ url_for('admin_polls') }}">Gerenciar Enquetes</a>
+    {% endif %}
+</nav>
+
+{% if session.role == 'admin' %}
+    <h3>Adicionar Novo Administrador</h3>
+    <form method="POST" action="{{ url_for('admin_add_user') }}">
+        <input type="hidden" name="role" value="admin">
+        <label>Nome de Usuário:</label>
+        <input type="text" name="username" required>
+        <label>Senha:</label>
+        <input type="password" name="password" required>
+        <button type="submit">Adicionar Admin</button>
+    </form>
+
+    <h3>Adicionar Funcionários ou Estudantes</h3>
+    <form method="POST" action="{{ url_for('admin_add_user') }}">
+        <label>Nome de Usuário:</label>
+        <input type="text" name="username" required>
+        <label>Senha:</label>
+        <input type="password" name="password" required>
+        <label>Role:</label>
+        <select name="role" required>
+            <option value="">Selecione...</option>
+            <option value="funcionario">Funcionário</option>
+            <option value="estudante">Estudante</option>
+        </select>
+        <button type="submit">Adicionar Usuário</button>
+    </form>
+{% endif %}
+
+<h3>Enquetes Ativas</h3>
+<div class="polls-container">
+    {% if polls %}
+        {% for poll in polls %}
+            <div class="poll-item">
+                <div class="poll-title">{{ poll.title }}</div>
+                <div class="poll-question">{{ poll.question }}</div>
+                
+                {% if poll.is_expired %}
+                    <div class="expired-warning">Enquete expirada!</div>
+                {% endif %}
+                
+                <div class="poll-stats">
+                    <span>Total de Votos: {{ poll.total_votes or 0 }}</span>
+                </div>
+                
+                <form method="POST" action="{{ url_for('vote', poll_id=poll.id) }}" class="vote-form">
+                    <div class="options-container">
+                        {% set options = poll.options.split(',') %}
+                        {% for opt in options %}
+                            {% set opt_clean = opt.strip() %}
+                            {% set vote_count_opt = poll.vote_count.get(opt_clean, 0) if poll.vote_count else 0 %}
+                            {% set total_votes = poll.total_votes or 0 %}
+                            {% set percentage = (vote_count_opt / total_votes * 100) if total_votes > 0 else 0 %}
+                            <div class="option-card">
+                                <input type="radio" name="option" value="{{ opt_clean }}" id="opt-{{ poll.id }}-{{ loop.index }}" required>
+                                <label for="opt-{{ poll.id }}-{{ loop.index }}" class="option-label">{{ opt_clean }}</label>
+                                <span class="percentage-badge">{{ "%.1f"|format(percentage) }}%</span>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <button type="submit" class="vote-button">Votar</button>
+                </form>
+                {% if session.role in ['funcionario', 'admin'] %}
+                    <a href="{{ url_for('results', poll_id=poll.id) }}" class="results-link">Ver Resultados Detalhados</a>
+                {% endif %}
+            </div>
+        {% endfor %}
+    {% else %}
+        {% if session.role in ['estudante', 'funcionario'] %}
+            <p>Não possui nenhuma enquete ativa no momento.</p>
+        {% else %}
+            <p>Nenhuma enquete ativa. Crie uma nova!</p>
+        {% endif %}
+    {% endif %}
+</div>
+{% endblock %}

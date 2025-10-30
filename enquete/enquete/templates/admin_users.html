@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Gerenciar Usuários</h2>
+<table border="1">
+    <tr><th>ID</th><th>Usuário</th><th>Role</th></tr>
+    {% for user in users %}
+        <tr>
+            <td>{{ user.id }}</td>
+            <td>{{ user.username }}</td>
+            <td class="role-{{ user.role }}">{{ user.role }}</td>
+        </tr>
+    {% endfor %}
+</table>
+<a href="{{ url_for('dashboard') }}">Voltar</a>
+{% endblock %}
